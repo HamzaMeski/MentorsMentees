@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @Table(name = "mentoring_relations")
-public class MentoringRelation {
+public class Mentoring {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
