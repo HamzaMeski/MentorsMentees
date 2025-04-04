@@ -16,12 +16,12 @@ public class MentoringRelation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "mentor_id")
     @ManyToOne()
+    @JoinColumn(name = "mentor_id")
     private User mentor;
 
-    @Column(name = "mentee_id")
     @ManyToOne()
+    @JoinColumn(name = "mentee_id")
     private User mentee;
 
     private LocalDateTime createdAt;
