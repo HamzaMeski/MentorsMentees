@@ -40,6 +40,13 @@ public class MentoringController {
         return ResponseEntity.ok(mentoringService.getMentorsOfMentee(menteeId));
     }
 
+    @GetMapping("/mentoringDetails/{id}")
+    private ResponseEntity<MentoringResponseDTO> getMentoring(
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(mentoringService.getMentoring(id));
+    }
+
     @DeleteMapping("/{mentoringId}")
     private ResponseEntity<Void> delete(
             @PathVariable Long mentoringId

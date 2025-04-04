@@ -6,7 +6,6 @@ import com.menters.server.components.mentoring.mapper.MentoringMapper;
 import com.menters.server.components.mentoring.repository.MentoringRepository;
 import com.menters.server.components.user.repository.UserRepository;
 import com.menters.server.entities.Mentoring;
-import com.menters.server.entities.User;
 import com.menters.server.exception.DuplicateResourceException;
 import com.menters.server.exception.ResourceNotFoundException;
 import com.menters.server.exception.ValidationException;
