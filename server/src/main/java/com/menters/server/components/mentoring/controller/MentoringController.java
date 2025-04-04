@@ -28,16 +28,16 @@ public class MentoringController {
 
     @GetMapping("/menteesOfMentor/{mentorId}")
     private ResponseEntity<List<MentoringResponseDTO>> getMenteesOfMentor(
-            @PathVariable Long id
+            @PathVariable Long mentorId
     ) {
-        return ResponseEntity.ok(mentoringService.getMenteesOfMentor(id));
+        return ResponseEntity.ok(mentoringService.getMenteesOfMentor(mentorId));
     }
 
     @GetMapping("/mentorsOfMentee/{menteeId}")
     private ResponseEntity<List<MentoringResponseDTO>> getMentorsOfMentee(
-            @PathVariable Long id
+            @PathVariable Long menteeId
     ) {
-        return ResponseEntity.ok(mentoringService.getMentorsOfMentee(id));
+        return ResponseEntity.ok(mentoringService.getMentorsOfMentee(menteeId));
     }
 
     @DeleteMapping("/{mentoringId}")
