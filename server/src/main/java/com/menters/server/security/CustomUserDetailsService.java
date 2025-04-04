@@ -19,14 +19,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.info("Attempting to load user by email: {}", email);
         
-        // Try to find user in admin table
+        // Try to find user in users table
         return userRepository.findByEmail(email)
-                .map(admin -> {
-                    log.info("Found admin user: {}", admin.getEmail());
+                .map(user -> {
+                    log.info("Found user: {}", user.getEmail());
                     return UserPrincipal.builder()
-                            .id(admin.getId())
-                            .email(admin.getEmail())
-                            .password(admin.getPassword())
+                            .id(user.getId())
+                            .email(user.getEmail())
+                            .password(user.getPassword())
                             .build();
                 })
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
