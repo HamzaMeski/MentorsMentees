@@ -1,0 +1,47 @@
+Une idée intéressante qui respecte ces exigences serait une **application de gestion de mentorat** dans une entreprise tech. 
+
+### **Concept** : 
+L'application permet aux employés de s'inscrire en tant que mentors ou mentorés, de suivre leurs relations de mentorat et d'organiser des sessions.
+
+---
+
+### **Modèle de données (4-5 entités)** : 
+
+1. **Utilisateur** (`id`, `nom`, `email`, `role`) 
+ - Contient les informations générales sur une personne (mentor ou mentoré). 
+
+2. **Profil** (`id`, `utilisateur_id`, `bio`, `compétences`, `expérience`) 
+ - Contient les détails supplémentaires sur un utilisateur. 
+ - **Relation One-to-One** avec **Utilisateur**. 
+
+3. **Session** (`id`, `date`, `sujet`, `mentor_id`, `mentore_id`) 
+ - Représente une session de mentorat planifiée entre un mentor et un mentoré. 
+ - **Relation Many-to-Many** entre **Utilisateur** (mentor et mentoré) via une table pivot. 
+
+4. **Relation de mentorat** (`id`, `mentor_id`, `mentore_id`, `statut`) 
+ - Permet de suivre qui est le mentor de qui. 
+ - **Relation Réflexive** sur **Utilisateur** (un utilisateur peut être mentor et mentoré à la fois). 
+
+---
+
+### **Fonctionnalités API REST (CRUD)** 
+- **Utilisateur** : création, mise à jour, suppression, récupération. 
+- **Profil** : gestion des détails supplémentaires d'un utilisateur. 
+- **Session** : planification et historique des sessions. 
+- **Relation de mentorat** : gestion des relations mentor/mentoré. 
+
+---
+
+### **Tests unitaires (4 exemples)** 
+1. Vérifier la création d’un utilisateur avec succès. 
+2. Vérifier que l’ajout d’un profil est bien lié à un utilisateur existant. 
+3. Tester l’ajout d’une session entre un mentor et un mentoré. 
+4. Vérifier qu’un mentor ne peut pas être son propre mentor (relation réflexive invalide). 
+
+---
+
+### **Frontend (optionnel)** 
+- Une interface web simple avec : 
+ - Un tableau de bord listant les mentors et mentorés. 
+ - Un formulaire pour ajouter une session. 
+ - Une visualisation des relations de mentorat.
