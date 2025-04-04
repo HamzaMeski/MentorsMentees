@@ -6,7 +6,7 @@ import com.menters.server.components.session.dto.SessionResponseDTO;
 import java.util.List;
 
 public interface SessionService {
-    SessionResponseDTO create(SessionRequestDTO requestDTO);
+    SessionResponseDTO create(SessionRequestDTO requestDTO, Long mentorId);
     List<SessionResponseDTO> getMentorSessions(Long mentorId);
     List<SessionResponseDTO> getMenteeSessions(Long menteeId);
     void deleteSession(Long sessionId);

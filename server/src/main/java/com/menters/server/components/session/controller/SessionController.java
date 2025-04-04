@@ -23,9 +23,11 @@ public class SessionController {
     public ResponseEntity<SessionResponseDTO> create(
             @Valid
             @RequestBody
-            SessionRequestDTO requestDTO
+            SessionRequestDTO requestDTO,
+            @CurrentUser UserPrincipal authUser
     ) {
-        return new ResponseEntity<>(sessionService.create(requestDTO), HttpStatus.CREATED);
+        Long mentorId = authUser.getId();
+        return new ResponseEntity<>(sessionService.create(requestDTO, mentorId), HttpStatus.CREATED);
     }
 
     @GetMapping("/mentorSessions")

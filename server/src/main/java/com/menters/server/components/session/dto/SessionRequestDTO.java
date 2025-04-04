@@ -6,9 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record SessionRequestDTO(
-        @NotNull(message = "mentorId is required")
-        Long mentorId,
-
         @NotNull(message = "menteeId is required")
         Long menteeId,
 

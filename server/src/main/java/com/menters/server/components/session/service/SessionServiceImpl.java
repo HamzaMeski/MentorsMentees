@@ -4,7 +4,9 @@ import com.menters.server.components.session.dto.SessionRequestDTO;
 import com.menters.server.components.session.dto.SessionResponseDTO;
 import com.menters.server.components.session.mapper.SessionMapper;
 import com.menters.server.components.session.repository.SessionRepository;
+import com.menters.server.components.user.repository.UserRepository;
 import com.menters.server.entities.Session;
+import com.menters.server.entities.User;
 import com.menters.server.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +20,21 @@ import java.util.List;
 public class SessionServiceImpl implements SessionService {
     private final SessionRepository sessionRepository;
     private final SessionMapper sessionMapper;
+    private final UserRepository userRepository;
 
     @Override
-    public SessionResponseDTO create(SessionRequestDTO requestDTO) {
-        return sessionMapper.toResponse(sessionRepository.save(sessionMapper.toEntity(requestDTO)));
+    public SessionResponseDTO create(SessionRequestDTO requestDTO, Long mentorId) {
+        User mentor = userRepository.findById(mentorId)
+                .orElseThrow(() -> new ResourceNotFoundException("mentor doesn't found with id "+ mentorId));
+
+        User mentee = userRepository.findById(requestDTO.menteeId())
+                .orElseThrow(() -> new ResourceNotFoundException("mentee doesn't found with id "+ mentorId));
+
+        Session session = sessionMapper.toEntity(requestDTO);
+        session.setMentor(mentor);
+        session.setMentee(mentee);
+
+        return sessionMapper.toResponse(sessionRepository.save(session));
     }
 
     @Override
