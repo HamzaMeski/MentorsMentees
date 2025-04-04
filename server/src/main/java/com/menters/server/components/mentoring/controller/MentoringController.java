@@ -3,6 +3,8 @@ package com.menters.server.components.mentoring.controller;
 import com.menters.server.components.mentoring.dto.MentoringRequestDTO;
 import com.menters.server.components.mentoring.dto.MentoringResponseDTO;
 import com.menters.server.components.mentoring.service.MentoringService;
+import com.menters.server.security.CurrentUser;
+import com.menters.server.security.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,22 +23,26 @@ public class MentoringController {
     public ResponseEntity<MentoringResponseDTO> create(
             @Valid
             @RequestBody
-            MentoringRequestDTO requestDTO
-    ) {
-        return new ResponseEntity<>(mentoringService.create(requestDTO), HttpStatus.CREATED);
+            MentoringRequestDTO requestDTO,
+            @CurrentUser UserPrincipal authUser
+            ) {
+        Long mentorId = authUser.getId();
+        return new ResponseEntity<>(mentoringService.create(requestDTO, mentorId), HttpStatus.CREATED);
     }
 
-    @GetMapping("/menteesOfMentor/{mentorId}")
+    @GetMapping("/menteesOfMentor")
     private ResponseEntity<List<MentoringResponseDTO>> getMenteesOfMentor(
-            @PathVariable Long mentorId
+            @CurrentUser UserPrincipal authUser
     ) {
+        Long mentorId = authUser.getId();
         return ResponseEntity.ok(mentoringService.getMenteesOfMentor(mentorId));
     }
 
-    @GetMapping("/mentorsOfMentee/{menteeId}")
+    @GetMapping("/mentorsOfMentee")
     private ResponseEntity<List<MentoringResponseDTO>> getMentorsOfMentee(
-            @PathVariable Long menteeId
+            @CurrentUser UserPrincipal authUser
     ) {
+        Long menteeId = authUser.getId();
         return ResponseEntity.ok(mentoringService.getMentorsOfMentee(menteeId));
     }
 

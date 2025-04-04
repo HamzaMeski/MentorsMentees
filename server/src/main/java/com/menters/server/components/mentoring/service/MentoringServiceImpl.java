@@ -6,6 +6,7 @@ import com.menters.server.components.mentoring.mapper.MentoringMapper;
 import com.menters.server.components.mentoring.repository.MentoringRepository;
 import com.menters.server.components.user.repository.UserRepository;
 import com.menters.server.entities.Mentoring;
+import com.menters.server.entities.User;
 import com.menters.server.exception.DuplicateResourceException;
 import com.menters.server.exception.ResourceNotFoundException;
 import com.menters.server.exception.ValidationException;
@@ -25,16 +26,26 @@ public class MentoringServiceImpl implements MentoringService {
     private final UserRepository userRepository;
 
     @Override
-    public MentoringResponseDTO create(MentoringRequestDTO requestDTO) {
-        if(mentoringRepository.isMentoringExists(requestDTO.mentorId(), requestDTO.menteeId())) {
+    public MentoringResponseDTO create(MentoringRequestDTO requestDTO, Long mentorId) {
+        if(mentoringRepository.isMentoringExists(mentorId, requestDTO.menteeId())) {
             throw new DuplicateResourceException("the mentee is already associated that mentor");
         }
 
-        if(requestDTO.mentorId() == requestDTO.menteeId()) {
+        if(mentorId == requestDTO.menteeId()) {
             throw new ValidationException("the mentor can not mentor they selves");
         }
 
-        return mentoringMapper.toResponse(mentoringMapper.toEntity(requestDTO));
+        User mentor = userRepository.findById(mentorId)
+                .orElseThrow(() -> new ResourceNotFoundException("mentor doesn't found with id "+ mentorId));
+
+        User mentee = userRepository.findById(requestDTO.menteeId())
+                .orElseThrow(() -> new ResourceNotFoundException("mentee doesn't found with id "+ mentorId));
+
+        Mentoring mentoring = mentoringMapper.toEntity(requestDTO);
+        mentoring.setMentor(mentor);
+        mentoring.setMentee(mentee);
+
+        return mentoringMapper.toResponse(mentoringRepository.save(mentoring));
     }
 
     @Override
