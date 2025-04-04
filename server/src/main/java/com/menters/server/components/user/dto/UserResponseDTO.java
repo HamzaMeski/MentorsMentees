@@ -1,4 +1,4 @@
-package com.menters.server.components.auth.dto;
+package com.menters.server.components.user.dto;
 
 import java.time.LocalDateTime;
 
