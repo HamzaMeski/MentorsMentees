@@ -11,7 +11,6 @@ import {ListMenteesComponent} from "./listMentees/listMentees.component";
 		ListMenteesComponent
 	],
 	template: `
-		<h1>Mentor section</h1>
         <add-mentor></add-mentor>
         <mentees-list></mentees-list>
 	`

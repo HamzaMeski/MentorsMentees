@@ -23,19 +23,19 @@ import {
             <aside class="w-64 bg-[#2e2f33] p-4 border-r border-[#3a3b3f]">
                 <h2 class="text-xl font-semibold mb-6">Dashboard</h2>
                 <nav class="flex flex-col gap-4">
-                    <a routerLink="/about" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
+                    <a routerLink="/dashboard/about" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
                         <fa-icon [icon]="faHouse" class="text-lg"></fa-icon>
                         <span>About</span>
                     </a>
-                    <a routerLink="/mentees" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
+                    <a routerLink="/dashboard/yourMentees" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
                         <fa-icon [icon]="faUsers" class="text-lg"></fa-icon>
                         <span>Your Mentees</span>
                     </a>
-                    <a routerLink="/mentors" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
+                    <a routerLink="/dashboard/yourMentors" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
                         <fa-icon [icon]="faChalkboardTeacher" class="text-lg"></fa-icon>
                         <span>Your Mentors</span>
                     </a>
-                    <a routerLink="/profile" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
+                    <a routerLink="/dashboard/profile" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
                         <fa-icon [icon]="faUser" class="text-lg"></fa-icon>
                         <span>Profile</span>
                     </a>
@@ -67,7 +67,7 @@ export class DashboardComponent {
 	protected readonly faRightFromBracket = faRightFromBracket;
 
 	constructor(private router: Router) {
-		this.router.navigate(["/dashboard/mentor"]);
+		this.router.navigate(["/dashboard/yourMentees"]);
 	}
 
 	logout() {
