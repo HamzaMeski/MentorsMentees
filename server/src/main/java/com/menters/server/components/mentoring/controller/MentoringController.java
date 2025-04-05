@@ -3,6 +3,7 @@ package com.menters.server.components.mentoring.controller;
 import com.menters.server.components.mentoring.dto.MentoringRequestDTO;
 import com.menters.server.components.mentoring.dto.MentoringResponseDTO;
 import com.menters.server.components.mentoring.service.MentoringService;
+import com.menters.server.components.user.dto.UserResponseDTO;
 import com.menters.server.security.CurrentUser;
 import com.menters.server.security.UserPrincipal;
 import jakarta.validation.Valid;
@@ -29,7 +30,7 @@ public class MentoringController {
     }
 
     @GetMapping("/menteesOfMentor")
-    private ResponseEntity<List<MentoringResponseDTO>> getMenteesOfMentor(
+    private ResponseEntity<List<UserResponseDTO>> getMenteesOfMentor(
             @CurrentUser UserPrincipal authUser
     ) {
         Long mentorId = authUser.getId();
