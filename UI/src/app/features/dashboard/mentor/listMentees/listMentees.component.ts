@@ -7,6 +7,7 @@ import {
 	selectGetMenteesOfMentorResponse
 } from "../../../../ngrx/selectors/mentoring/mentoring.selectors";
 import {getMenteesOfMentor} from "../../../../ngrx/actions/mentoring/mentoring.actions";
+import {RouterLink} from "@angular/router";
 
 
 @Component({
@@ -14,7 +15,8 @@ import {getMenteesOfMentor} from "../../../../ngrx/actions/mentoring/mentoring.a
 	selector: 'mentees-list',
 	imports: [
 		AsyncPipe,
-		CommonModule
+		CommonModule,
+		RouterLink
 	],
 	template: `
         <div class="p-6 text-white">
@@ -41,6 +43,7 @@ import {getMenteesOfMentor} from "../../../../ngrx/actions/mentoring/mentoring.a
                     <th class="p-3">Email</th>
                     <th class="p-3">Phone</th>
                     <th class="p-3">Bio</th>
+                    <th class="p-3">Sessions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,6 +54,11 @@ import {getMenteesOfMentor} from "../../../../ngrx/actions/mentoring/mentoring.a
                     <td class="p-3">{{ mentee.email }}</td>
                     <td class="p-3">{{ mentee.phone }}</td>
                     <td class="p-3">{{ mentee.bio }}</td>
+                	<td class="p-3">
+	                	<a [routerLink]="['/dashboard/yourMentees/mentorSession', mentee.id]" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-full shadow transition">
+					    	Manage Session
+					  	</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
