@@ -34,6 +34,8 @@ public class SessionServiceImpl implements SessionService {
         session.setMentor(mentor);
         session.setMentee(mentee);
 
+        /*TODO: I will add condition that check the mentee is already associated to mentor*/
+
         return sessionMapper.toResponse(sessionRepository.save(session));
     }
 

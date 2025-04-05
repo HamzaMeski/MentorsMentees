@@ -28,7 +28,7 @@ public class MentoringServiceImpl implements MentoringService {
     @Override
     public MentoringResponseDTO create(MentoringRequestDTO requestDTO, Long mentorId) {
         if(mentoringRepository.isMentoringExists(mentorId, requestDTO.menteeId())) {
-            throw new DuplicateResourceException("the mentee is already associated that mentor");
+            throw new DuplicateResourceException("the mentee is already associated to that mentor");
         }
 
         if(mentorId == requestDTO.menteeId()) {
@@ -50,7 +50,7 @@ public class MentoringServiceImpl implements MentoringService {
 
     @Override
     public List<MentoringResponseDTO> getMenteesOfMentor(Long mentorId) {
-        if(userRepository.existsById(mentorId)) {
+        if(!userRepository.existsById(mentorId)) {
             throw new ResourceNotFoundException("mentor doesn't found with id "+mentorId);
         }
         return mentoringRepository.getMenteesOfMentor(mentorId).stream()
@@ -60,7 +60,7 @@ public class MentoringServiceImpl implements MentoringService {
 
     @Override
     public List<MentoringResponseDTO> getMentorsOfMentee(Long menteeId) {
-        if(userRepository.existsById(menteeId)) {
+        if(!userRepository.existsById(menteeId)) {
             throw new ResourceNotFoundException("mentee doesn't found with id "+menteeId);
         }
 

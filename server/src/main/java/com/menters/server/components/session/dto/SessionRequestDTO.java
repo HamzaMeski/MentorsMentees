@@ -12,6 +12,6 @@ public record SessionRequestDTO(
         @NotBlank(message = "subject is required")
         String subject,
 
-        @NotBlank(message = "session date is required")
+        @NotNull(message = "session date is required")
         LocalDateTime sessionDate
 ) {}

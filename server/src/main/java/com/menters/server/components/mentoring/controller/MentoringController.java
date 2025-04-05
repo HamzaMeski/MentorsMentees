@@ -21,9 +21,7 @@ public class MentoringController {
 
     @PostMapping()
     public ResponseEntity<MentoringResponseDTO> create(
-            @Valid
-            @RequestBody
-            MentoringRequestDTO requestDTO,
+            @Valid @RequestBody MentoringRequestDTO requestDTO,
             @CurrentUser UserPrincipal authUser
             ) {
         Long mentorId = authUser.getId();
