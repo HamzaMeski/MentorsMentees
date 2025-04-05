@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {Router, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {
 	faHouse,
@@ -15,7 +15,8 @@ import {
 	selector: 'dashboard',
 	imports: [
 		RouterOutlet,
-		FontAwesomeModule
+		FontAwesomeModule,
+		RouterLink
 	],
 	template: `
         <section class="h-dvh flex bg-[#1e1f22] text-white">
@@ -67,7 +68,7 @@ export class DashboardComponent {
 	protected readonly faRightFromBracket = faRightFromBracket;
 
 	constructor(private router: Router) {
-		this.router.navigate(["/dashboard/yourMentees"]);
+		// this.router.navigate(["/dashboard/yourMentees"]);
 	}
 
 	logout() {
