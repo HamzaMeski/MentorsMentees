@@ -81,14 +81,28 @@ public class MentoringServiceImpl implements MentoringService {
     }
 
     @Override
-    public List<MentoringResponseDTO> getMentorsOfMentee(Long menteeId) {
+    public List<UserResponseDTO> getMentorsOfMentee(Long menteeId) {
         if(!userRepository.existsById(menteeId)) {
             throw new ResourceNotFoundException("mentee doesn't found with id "+menteeId);
         }
 
-        return mentoringRepository.getMentorsOfMentee(menteeId).stream()
-            .map(mentoringMapper::toResponse)
-            .toList();
+        List<MentoringResponseDTO> mentoringResponseDTOs =  mentoringRepository.getMentorsOfMentee(menteeId).stream()
+                .map(mentoringMapper::toResponse)
+                .toList();
+
+        List<Long> menteeIds = mentoringResponseDTOs.stream()
+                .map(MentoringResponseDTO::menteeId)
+                .toList();
+
+        List<User> users = userRepository.findAllByIdIn(menteeIds);
+        List<Profile> profiles = profileRepository.findAllByUserIdIn(menteeIds);
+
+        List<UserResponseDTO> response  = new ArrayList<>();
+        for(int i = 0; i < users.size(); i++) {
+            response.add(userMapper.toResponse(users.get(i), profiles.get(i)));
+        }
+
+        return response;
     }
 
     @Override

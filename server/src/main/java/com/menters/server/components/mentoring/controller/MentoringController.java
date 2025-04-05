@@ -38,7 +38,7 @@ public class MentoringController {
     }
 
     @GetMapping("/mentorsOfMentee")
-    private ResponseEntity<List<MentoringResponseDTO>> getMentorsOfMentee(
+    private ResponseEntity<List<UserResponseDTO>> getMentorsOfMentee(
             @CurrentUser UserPrincipal authUser
     ) {
         Long menteeId = authUser.getId();
