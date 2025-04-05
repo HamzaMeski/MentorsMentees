@@ -46,7 +46,7 @@ public class MentoringServiceImpl implements MentoringService {
                 .orElseThrow(() -> new ResourceNotFoundException("mentor doesn't found with id "+ mentorId));
 
         User mentee = userRepository.findById(requestDTO.menteeId())
-                .orElseThrow(() -> new ResourceNotFoundException("mentee doesn't found with id "+ mentorId));
+                .orElseThrow(() -> new ResourceNotFoundException("user doesn't found with id "+ requestDTO.menteeId()));
 
         Mentoring mentoring = mentoringMapper.toEntity(requestDTO);
         mentoring.setMentor(mentor);

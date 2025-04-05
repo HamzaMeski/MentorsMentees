@@ -29,8 +29,10 @@ export class MentoringEffects {
 				ofType(createMentoring),
 				mergeMap(({ request }) =>
 					this.mentoringService.create(request).pipe(
-						map(response => createMentoringSuccess({ response })),
-						catchError(error => of(createMentoringError({ error: error.message })))
+						map(response => {
+							return createMentoringSuccess({ response })
+						}),
+						catchError(error => of(createMentoringError({ error: error.error.message })))
 					)
 				)
 			)

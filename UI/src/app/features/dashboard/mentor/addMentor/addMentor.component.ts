@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
-import {AsyncPipe, NgClass} from "@angular/common";
+import {AsyncPipe, CommonModule, NgClass} from "@angular/common";
 import {
 	selectCreateMentoringError,
 	selectCreateMentoringLoading, selectCreateMentoringResponse
@@ -16,7 +16,8 @@ import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.acti
 	imports: [
 		ReactiveFormsModule,
 		NgClass,
-		AsyncPipe
+		AsyncPipe,
+		CommonModule
 	],
 	template: `
         <section class="h-full flex bg-[#313338]">
@@ -29,7 +30,7 @@ import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.acti
                 <div class="mb-8">
                     <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="bg-[#1E1F22] flex p-3 rounded-lg">
                         <input
-                            formControlName="individualId"
+                            formControlName="menteeId"
                             type="number"
                             placeholder="You can add friends with their Discord usernames"
                             class="bg-transparent border-none w-full text-[#DBDEE1] placeholder-[#949BA4] text-[16px] p-2 focus:ring-0 focus:outline-none"
@@ -70,28 +71,8 @@ import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.acti
                     </div>
 
                     <div *ngIf="createMentoringError$ | async as error" class="mt-2 text-red-500 text-[18px]">
-                        Server validation error: {{ error }}
+                        {{ error }}
                     </div>
-                </div>
-
-                <!-- Divider -->
-                <div class="border-t border-[#1E1F22] mb-8"></div>
-
-                <!-- Wumpus Section -->
-                <div class="flex flex-col items-center text-center">
-                    <img src="/addFriend/friends.webp" alt="Wumpus" class="w-[500px] mb-8">
-                    <p class="text-[#949BA4] text-[14px]">Wumpus is waiting on friends. You don't have to, though!</p>
-                </div>
-            </div>
-
-            <!-- Active Now Sidebar -->
-            <div class="w-[340px] bg-[#2B2D31] p-4 border-l border-[#1E1F22]">
-                <h3 class="text-white font-semibold mb-4">Active Now</h3>
-                <div class="flex flex-col items-center justify-center text-center mt-8">
-                    <p class="text-white font-semibold mb-2">It's quiet for now...</p>
-                    <p class="text-[#949BA4] text-[14px]">
-                        When a friend starts an activity—like playing a game or hanging out on voice—we'll show it here!
-                    </p>
                 </div>
             </div>
         </section>
@@ -112,6 +93,8 @@ export class AddMentorComponent {
 		this.createMentoringResponse$ = this.store.select(selectCreateMentoringResponse)
 		this.createMentoringLoading$ = this.store.select(selectCreateMentoringLoading)
 		this.createMentoringError$ = this.store.select(selectCreateMentoringError)
+
+		this.createMentoringLoading$.subscribe(val => console.log(val))
 	}
 
 	onSubmit() {

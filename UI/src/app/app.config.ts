@@ -18,6 +18,7 @@ import {
     getMenteesOfMentorReducer,
     getMentorsOfMenteeReducer
 } from "./ngrx/reducers/mentoring/mentoring.reducers";
+import {MentoringEffects} from "./ngrx/effects/mentoring/mentoring.effects";
 
 
 
@@ -44,7 +45,8 @@ export const appConfig: ApplicationConfig = {
         provideEffects([
             RegisterEffects,
             LoginEffects,
-            UserProfileEffects
+            UserProfileEffects,
+            MentoringEffects
         ])
     ]
 };
