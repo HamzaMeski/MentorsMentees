@@ -19,6 +19,12 @@ import {
     getMentorsOfMenteeReducer
 } from "./ngrx/reducers/mentoring/mentoring.reducers";
 import {MentoringEffects} from "./ngrx/effects/mentoring/mentoring.effects";
+import {
+    createSessionReducer,
+    getMenteeSessionsReducer,
+    getMentorSessionsReducer
+} from "./ngrx/reducers/session/session.reducers";
+import {SessionEffects} from "./ngrx/effects/session/session.effects";
 
 
 
@@ -39,14 +45,18 @@ export const appConfig: ApplicationConfig = {
             userProfile: userProfileReducers,
             createMentoring: createMentoringReducer,
             getMenteesOfMentor: getMenteesOfMentorReducer,
-            getMentorsOfMentee: getMentorsOfMenteeReducer
+            getMentorsOfMentee: getMentorsOfMenteeReducer,
+            createSession: createSessionReducer,
+            getMentorSessions: getMentorSessionsReducer,
+            getMenteeSessions: getMenteeSessionsReducer
         }),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         provideEffects([
             RegisterEffects,
             LoginEffects,
             UserProfileEffects,
-            MentoringEffects
+            MentoringEffects,
+            SessionEffects
         ])
     ]
 };

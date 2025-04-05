@@ -31,14 +31,14 @@ public class SessionController {
     }
 
     @GetMapping("/mentorSessions")
-    private ResponseEntity<List<SessionResponseDTO>> getMenteesOfMentor(
+    private ResponseEntity<List<SessionResponseDTO>> getMentorSessions(
             @CurrentUser UserPrincipal authUser
             ) {
         return ResponseEntity.ok(sessionService.getMentorSessions(authUser.getId()));
     }
 
     @GetMapping("/menteeSessions")
-    private ResponseEntity<List<SessionResponseDTO>> getMentorsOfMentee(
+    private ResponseEntity<List<SessionResponseDTO>> getMenteeSessions(
             @CurrentUser UserPrincipal authUser
     ) {
         return ResponseEntity.ok(sessionService.getMenteeSessions(authUser.getId()));
