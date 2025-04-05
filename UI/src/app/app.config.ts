@@ -13,6 +13,11 @@ import {LoginEffects} from "./ngrx/effects/auth/login.effects";
 import {userProfileReducers} from "./ngrx/reducers/userProfile/userProfile.reducers";
 import {UserProfileEffects} from "./ngrx/effects/userProfile/userProfile.effects";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
+import {
+    createMentoringReducer,
+    getMenteesOfMentorReducer,
+    getMentorsOfMenteeReducer
+} from "./ngrx/reducers/mentoring/mentoring.reducers";
 
 
 
@@ -31,6 +36,9 @@ export const appConfig: ApplicationConfig = {
             register: registerReducers,
             login: loginReducers,
             userProfile: userProfileReducers,
+            createMentoring: createMentoringReducer,
+            getMenteesOfMentor: getMenteesOfMentorReducer,
+            getMentorsOfMentee: getMentorsOfMenteeReducer
         }),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         provideEffects([
