@@ -23,8 +23,8 @@ import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.acti
         <section class="h-full flex bg-[#313338]">
             <div class="flex-1 p-6 flex flex-col">
                 <!-- Header -->
-                <h2 class="text-white text-[17px] font-semibold mb-2">ADD FRIEND</h2>
-                <p class="text-[#949BA4] text-[14px] mb-4">You can add friends with their Discord usernames.</p>
+                <h2 class="text-white text-[17px] font-semibold mb-2">MENTORING</h2>
+                <p class="text-[#949BA4] text-[14px] mb-4">You can create mentoring relationships with other users.</p>
 
                 <!-- Form Section -->
                 <div class="mb-8">
@@ -41,7 +41,7 @@ import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.acti
                             class="w-48 p-2 rounded text-white text-[14px] flex items-center justify-center transition-colors"
                             type="submit"
                         >
-                            <div *ngIf="!(createMentoringLoading$ | async)">Create Mentoring RelationShip</div>
+                            <div *ngIf="!(createMentoringLoading$ | async)">Create Mentoring</div>
                             <div *ngIf="createMentoringLoading$ | async" class="w-6 h-6">
                                 <svg aria-hidden="true" class="w-5 h-5 text-[#1E1F22] animate-spin fill-white"
                                      viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
