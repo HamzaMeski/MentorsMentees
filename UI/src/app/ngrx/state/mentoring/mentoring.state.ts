@@ -10,13 +10,13 @@ export interface MentoringState {
 	},
 
 	getMenteesOfMentor: {
-		response: UserResponse | null,
+		response: UserResponse[] | null,
 		loading: boolean,
 		error: string | null
 	},
 
 	getMentorsOfMentee: {
-		response: UserResponse | null,
+		response: UserResponse[] | null,
 		loading: boolean,
 		error: string | null
 	}

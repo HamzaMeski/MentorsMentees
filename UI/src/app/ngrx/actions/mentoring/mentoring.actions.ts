@@ -21,13 +21,12 @@ export const createMentoringError = createAction(
 
 // Get Mentees of Mentor
 export const getMenteesOfMentor = createAction(
-	'[Mentoring] Get Mentees of Mentor',
-	props<{ mentorId: number }>()
+	'[Mentoring] Get Mentees of Mentor'
 );
 
 export const getMenteesOfMentorSuccess = createAction(
 	'[Mentoring] Get Mentees of Mentor Success',
-	props<{ response: UserResponse }>()
+	props<{ response: UserResponse[] }>()
 );
 
 export const getMenteesOfMentorError = createAction(
@@ -37,13 +36,12 @@ export const getMenteesOfMentorError = createAction(
 
 // Get Mentors of Mentee
 export const getMentorsOfMentee = createAction(
-	'[Mentoring] Get Mentors of Mentee',
-	props<{ menteeId: number }>()
+	'[Mentoring] Get Mentors of Mentee'
 );
 
 export const getMentorsOfMenteeSuccess = createAction(
 	'[Mentoring] Get Mentors of Mentee Success',
-	props<{ response: UserResponse }>()
+	props<{ response: UserResponse[] }>()
 );
 
 export const getMentorsOfMenteeError = createAction(
