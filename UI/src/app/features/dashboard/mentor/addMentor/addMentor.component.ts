@@ -6,7 +6,6 @@ import {
 	selectCreateMentoringError,
 	selectCreateMentoringLoading, selectCreateMentoringResponse
 } from "../../../../ngrx/selectors/mentoring/mentoring.selectors";
-import {selectUserProfile} from "../../../../ngrx/selectors/userProfile/userProfile.selectors";
 import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.actions";
 
 
@@ -20,7 +19,7 @@ import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.acti
 		CommonModule
 	],
 	template: `
-        <section class="h-full flex bg-[#313338]">
+        <section class="flex bg-[#313338]">
             <div class="flex-1 p-6 flex flex-col">
                 <!-- Header -->
                 <h2 class="text-white text-[17px] font-semibold mb-2">MENTORING</h2>
@@ -79,7 +78,6 @@ import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.acti
 	`
 })
 export class AddMentorComponent {
-	authUser$
 	createMentoringResponse$
 	createMentoringLoading$
 	createMentoringError$
@@ -89,12 +87,9 @@ export class AddMentorComponent {
 	})
 
 	constructor(private store:Store) {
-		this.authUser$ = this.store.select(selectUserProfile)
 		this.createMentoringResponse$ = this.store.select(selectCreateMentoringResponse)
 		this.createMentoringLoading$ = this.store.select(selectCreateMentoringLoading)
 		this.createMentoringError$ = this.store.select(selectCreateMentoringError)
-
-		this.createMentoringLoading$.subscribe(val => console.log(val))
 	}
 
 	onSubmit() {

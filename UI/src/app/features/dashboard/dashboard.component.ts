@@ -9,8 +9,9 @@ import {RouterOutlet} from "@angular/router";
 
 	],
 	template: `
-		dashboard
-		<router-outlet></router-outlet>
+		<section class="h-dvh">
+            <router-outlet></router-outlet>
+        </section>
 	`
 })
 export class DashboardComponent {

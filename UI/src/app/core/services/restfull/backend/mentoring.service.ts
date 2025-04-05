@@ -18,7 +18,7 @@ export class MentoringService {
 	}
 
 	getMenteesOfMentor(): Observable<UserResponse[]> {
-		return this.http.get<UserResponse[]>(`${this.API_URL}/mentoring/menteesOfMentor}`)
+		return this.http.get<UserResponse[]>(`${this.API_URL}/mentoring/menteesOfMentor`)
 	}
 
 	getMentorsOfMentee(): Observable<UserResponse[]> {
