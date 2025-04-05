@@ -3,14 +3,14 @@ import {Component} from "@angular/core";
 
 @Component({
 	standalone: true,
-	selector: 'profile',
+	selector: 'list-mentor-sessions',
 	imports: [
 
 	],
 	template: `
-		Profile section
+        List Mentor Sessions
 	`
 })
-export class ProfileComponent {
+export class ListMentorSessionsComponent {
 
 }

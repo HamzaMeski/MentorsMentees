@@ -1,16 +1,15 @@
 import {Component} from "@angular/core";
 
-
 @Component({
 	standalone: true,
-	selector: 'profile',
+	selector: 'add-session',
 	imports: [
 
 	],
 	template: `
-		Profile section
+		addSession
 	`
 })
-export class ProfileComponent {
+export class AddSessionComponent {
 
 }
