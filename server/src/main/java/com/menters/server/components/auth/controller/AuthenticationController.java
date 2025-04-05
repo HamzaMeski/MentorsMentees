@@ -2,7 +2,7 @@ package com.menters.server.components.auth.controller;
 
 import com.menters.server.components.auth.dto.AuthenticationRequest;
 import com.menters.server.components.auth.dto.AuthenticationResponse;
-import com.menters.server.components.user.dto.UserResponseDTO;
+import com.menters.server.components.auth.dto.UserInfoResponse;
 import com.menters.server.components.auth.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/authenticatedUser")
-    public ResponseEntity<UserResponseDTO> getAuthenticatedUser() {
+    public ResponseEntity<UserInfoResponse> getAuthenticatedUser() {
         return ResponseEntity.ok(service.getAuthenticatedUser());
     }
 }

@@ -9,6 +9,17 @@ public record UserRequestDTO(
         String email,
 
         @NotBlank(message = "password is required")
-        String password
+        String password,
+
+        @NotBlank(message = "first name is required")
+        String firstName,
+
+        @NotBlank(message = "second name is required")
+        String lastName,
+
+        @NotBlank(message = "phone number is required")
+        String phone,
+
+        String bio
 ) {}
 

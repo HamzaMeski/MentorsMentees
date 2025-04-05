@@ -5,7 +5,6 @@ export interface IndividualResponse {
 	password: string,
 	firstName: string,
 	lastName: string,
-	displayName: string,
 	phone: string,
 	bio: string,
 	createdAt: Date,

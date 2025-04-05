@@ -1,8 +1,8 @@
-package com.menters.server.components.user.dto;
+package com.menters.server.components.auth.dto;
 
 import java.time.LocalDateTime;
 
-public record UserResponseDTO(
+public record UserInfoResponse(
         Long id,
         String email,
         String password,

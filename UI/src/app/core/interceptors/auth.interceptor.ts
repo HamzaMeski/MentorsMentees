@@ -3,7 +3,6 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/com
 import {catchError, Observable, throwError} from "rxjs";
 import {AuthFacadeService} from "../services/helpers/authFacade.service";
 import {RedirectionService} from "../services/helpers/redirection.service";
-import {openRouterApiKey} from "../../../environments/env";
 
 @Injectable({
 	providedIn: 'root'
@@ -11,7 +10,7 @@ import {openRouterApiKey} from "../../../environments/env";
 export class AuthInterceptor implements HttpInterceptor {
 	private publicEndPoints: string[] = [
 		'http://localhost:8080/api/v1/auth/login',
-		'http://localhost:8080/api/v1/individuals/register'
+		'http://localhost:8080/api/v1/users/register'
 	]
 
 	constructor(
@@ -24,19 +23,6 @@ export class AuthInterceptor implements HttpInterceptor {
 			public endpoints
 		*/
 		if(this.publicEndPoints.some(url => url == req.url.valueOf())) {
-			return next.handle(req)
-		}
-
-		/*
-			AI endpoint
-		*/
-		if(req.url.valueOf() == 'https://openrouter.ai/api/v1/chat/completions') {
-			req = req.clone({
-				headers: req.headers
-					.set('Authorization', `Bearer ${openRouterApiKey}`)
-					.set('Content-Type', 'application/json')
-			})
-
 			return next.handle(req)
 		}
 

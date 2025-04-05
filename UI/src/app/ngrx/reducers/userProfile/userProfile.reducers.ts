@@ -1,7 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {initialUserProfileState} from "../../state/userProfile/userProfile.state";
 import {
-	deleteUserProfile,
 	loadUserProfile,
 	loadUserProfileFailure,
 	loadUserProfileSuccess

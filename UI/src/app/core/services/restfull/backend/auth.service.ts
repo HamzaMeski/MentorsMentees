@@ -20,7 +20,7 @@ export class AuthService {
 	}
 
 	register(request: RegisterRequest): Observable<RegisterResponse> {
-		return this.http.post<RegisterResponse>(`${this.API_URL}/individuals/register`, request)
+		return this.http.post<RegisterResponse>(`${this.API_URL}/users/register`, request)
 	}
 
 	getAuthenticatedUser(): Observable<IndividualResponse> {

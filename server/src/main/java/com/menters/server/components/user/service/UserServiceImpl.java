@@ -3,7 +3,9 @@ package com.menters.server.components.user.service;
 import com.menters.server.components.user.dto.UserRequestDTO;
 import com.menters.server.components.user.dto.UserResponseDTO;
 import com.menters.server.components.user.mapper.UserMapper;
+import com.menters.server.components.user.repository.ProfileRepository;
 import com.menters.server.components.user.repository.UserRepository;
+import com.menters.server.entities.Profile;
 import com.menters.server.entities.User;
 import com.menters.server.exception.DuplicateResourceException;
 import com.menters.server.exception.ResourceNotFoundException;
@@ -20,6 +22,7 @@ public class UserServiceImpl implements UserService  {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final ProfileRepository profileRepository;
 
     @Override
     public UserResponseDTO register(UserRequestDTO requestDTO) {
@@ -27,16 +30,21 @@ public class UserServiceImpl implements UserService  {
             throw new DuplicateResourceException("Email already exists. ");
         }
 
-        User user = userMapper.toEntity(requestDTO);
+        User user = userMapper.toUserEntity(requestDTO);
         user.setPassword(passwordEncoder.encode(requestDTO.password()));
 
-        return userMapper.toResponse(userRepository.save(user));
+        Profile profile = userMapper.toProfileEntity(requestDTO);
+        profile.setUser(user);
+
+        return  userMapper.toResponse(userRepository.save(user), profileRepository.save(profile));
     }
 
     @Override
     public UserResponseDTO getUser(Long id) {
         User user = findUserById(id);
-        return userMapper.toResponse(user);
+        Profile profile = profileRepository.findById(user.getId())
+                .orElseThrow();
+        return userMapper.toResponse(user, profile);
     }
 
     @Override

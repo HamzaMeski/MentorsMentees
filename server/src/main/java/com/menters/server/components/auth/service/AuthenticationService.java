@@ -2,9 +2,12 @@ package com.menters.server.components.auth.service;
 
 import com.menters.server.components.auth.dto.AuthenticationRequest;
 import com.menters.server.components.auth.dto.AuthenticationResponse;
+import com.menters.server.components.auth.dto.UserInfoResponse;
 import com.menters.server.components.user.dto.UserResponseDTO;
 import com.menters.server.components.auth.mapper.AuthMapper;
+import com.menters.server.components.user.repository.ProfileRepository;
 import com.menters.server.components.user.repository.UserRepository;
+import com.menters.server.entities.Profile;
 import com.menters.server.entities.User;
 import com.menters.server.exception.AuthenticationException;
 import com.menters.server.security.JwtService;
@@ -26,6 +29,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final UserRepository userRepository;
     private final AuthMapper authMapper;
+    private final ProfileRepository profileRepository;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         log.info("Attempting authentication for email: {}", request.getEmail());
@@ -65,7 +69,7 @@ public class AuthenticationService {
                 .build();
     }
 
-    public UserResponseDTO getAuthenticatedUser() {
+    public UserInfoResponse getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
@@ -74,6 +78,9 @@ public class AuthenticationService {
 
         User user = userRepository.findById(userId)
                 .orElseThrow();
-        return authMapper.toResponse(user);
+
+        Profile profile = profileRepository.findById(user.getId())
+                .orElseThrow();
+        return authMapper.toResponse(user, profile);
     }
 }
