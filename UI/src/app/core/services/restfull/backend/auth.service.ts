@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {LoginRequest, LoginResponse} from "../../../types/auth/login.types";
 import {Observable} from "rxjs";
 import {RegisterRequest, RegisterResponse} from "../../../types/auth/register.types";
-import {IndividualResponse} from "../../../types/individual/individual.types";
+import {UserResponse} from "../../../types/user/user.types";
 import {serverApiUrl} from "../../../../../environments/env";
 
 
@@ -23,7 +23,7 @@ export class AuthService {
 		return this.http.post<RegisterResponse>(`${this.API_URL}/users/register`, request)
 	}
 
-	getAuthenticatedUser(): Observable<IndividualResponse> {
-		return this.http.get<IndividualResponse>(`${this.API_URL}/auth/authenticatedUser`)
+	getAuthenticatedUser(): Observable<UserResponse> {
+		return this.http.get<UserResponse>(`${this.API_URL}/auth/authenticatedUser`)
 	}
 }

@@ -1,8 +1,8 @@
-import {IndividualResponse} from "../../../core/types/individual/individual.types";
+import {UserResponse} from "../../../core/types/user/user.types";
 
 
 export interface UserProfileState {
-	user: IndividualResponse | null,
+	user: UserResponse | null,
 	loading: boolean,
 	error: string | null
 }

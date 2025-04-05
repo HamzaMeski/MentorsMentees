@@ -40,7 +40,7 @@ export class LoginEffects {
 					tap(({ response }) => {
 						const authUserToken = response.token;
 						localStorage.setItem('authUserToken', authUserToken);
-						this.router.navigate(['/individual/friend/mng/allFriends']);
+						this.router.navigate(['/dashboard']);
 					})
 				),
 			{ dispatch: false }

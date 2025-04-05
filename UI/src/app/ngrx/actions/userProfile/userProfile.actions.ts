@@ -1,5 +1,5 @@
 import {createAction, props} from "@ngrx/store";
-import {IndividualResponse} from "../../../core/types/individual/individual.types";
+import {UserResponse} from "../../../core/types/user/user.types";
 
 
 export const loadUserProfile = createAction(
@@ -8,7 +8,7 @@ export const loadUserProfile = createAction(
 
 export const loadUserProfileSuccess = createAction(
 	'[UserProfile] Load UserProfileSuccess',
-	props<{ response: IndividualResponse}>()
+	props<{ response: UserResponse}>()
 )
 
 export const loadUserProfileFailure = createAction(

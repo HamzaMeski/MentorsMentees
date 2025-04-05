@@ -66,15 +66,6 @@ import {register} from "../../../ngrx/actions/auth/register.actions";
                         </div>
 
                         <div class="flex flex-col">
-                            <label for="">display name:</label>
-                            <input type="text" formControlName="displayName" class="bg-gray-200 text-black p-1 rounded-md">
-                            <div *ngIf="myForm.get('displayName')?.invalid && myForm.get('displayName')?.touched">
-                                <small *ngIf="myForm.get('displayName')?.errors?.['required']" class="text-red-500">display name is required</small>
-                                <small *ngIf="myForm.get('displayName')?.errors?.['minlength']" class="text-red-500">min length is 3</small>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col">
                             <label for="">phone:</label>
                             <input type="text" formControlName="phone" class="bg-gray-200 text-black p-1 rounded-md">
                             <div *ngIf="myForm.get('phone')?.invalid && myForm.get('phone')?.touched">
@@ -135,7 +126,6 @@ export class RegisterComponent {
         lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-        displayName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         phone: new FormControl('', [Validators.required, Validators.minLength(10)]),
         bio: new FormControl('', []),
     })

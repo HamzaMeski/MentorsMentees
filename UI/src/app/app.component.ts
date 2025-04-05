@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {CommonModule} from "@angular/common";
-import {Store} from "@ngrx/store";
-import {connectToChat} from "./ngrx/actions/peerChat/peerChat.actions";
-import {map, of} from "rxjs";
 
 @Component({
     standalone: true,
@@ -15,15 +12,5 @@ import {map, of} from "rxjs";
         </section>
     `
 })
-export class AppComponent implements OnInit{
-
-    constructor(
-        private store: Store
-    ) {}
-
-    ngOnInit() {
-      if(localStorage.getItem('authUserToken')) {
-        this.store.dispatch(connectToChat())
-      }
-    }
+export class AppComponent{
 }
