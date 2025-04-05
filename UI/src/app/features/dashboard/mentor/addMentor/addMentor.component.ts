@@ -1,8 +1,13 @@
 import {Component} from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
 import {AsyncPipe, NgClass} from "@angular/common";
+import {
+	selectCreateMentoringError,
+	selectCreateMentoringLoading, selectCreateMentoringResponse
+} from "../../../../ngrx/selectors/mentoring/mentoring.selectors";
+import {selectUserProfile} from "../../../../ngrx/selectors/userProfile/userProfile.selectors";
+import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.actions";
 
 
 @Component({
@@ -35,8 +40,8 @@ import {AsyncPipe, NgClass} from "@angular/common";
                             class="w-48 p-2 rounded text-white text-[14px] flex items-center justify-center transition-colors"
                             type="submit"
                         >
-                            <div *ngIf="!(friendShipDemandLoading$ | async)">Send Friend Request</div>
-                            <div *ngIf="friendShipDemandLoading$ | async" class="w-6 h-6">
+                            <div *ngIf="!(createMentoringLoading$ | async)">Create Mentoring RelationShip</div>
+                            <div *ngIf="createMentoringLoading$ | async" class="w-6 h-6">
                                 <svg aria-hidden="true" class="w-5 h-5 text-[#1E1F22] animate-spin fill-white"
                                      viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -58,13 +63,13 @@ import {AsyncPipe, NgClass} from "@angular/common";
                         <small *ngIf="myForm.get('individualId')?.errors?.['pattern']" class="text-red-500 text-[12px]">Individual
                             ID should be a number</small>
                     </div>
-                    <div *ngIf="friendShipDemandResponse$ | async">
-                        <div *ngIf="requestSend" class="mt-2 text-green-500 text-[18px]">
+                    <div *ngIf="createMentoringResponse$ | async">
+                        <div class="mt-2 text-green-500 text-[18px]">
                             Request Send Successfully
                         </div>
                     </div>
 
-                    <div *ngIf="friendShipDemandError$ | async as error" class="mt-2 text-red-500 text-[18px]">
+                    <div *ngIf="createMentoringError$ | async as error" class="mt-2 text-red-500 text-[18px]">
                         Server validation error: {{ error }}
                     </div>
                 </div>
@@ -93,28 +98,26 @@ import {AsyncPipe, NgClass} from "@angular/common";
 	`
 })
 export class AddMentorComponent {
-	authUser$:Observable<any>
-	friendShipDemandResponse$
-	friendShipDemandLoading$
-	friendShipDemandError$
-	requestSend: boolean = false
+	authUser$
+	createMentoringResponse$
+	createMentoringLoading$
+	createMentoringError$
 
 	myForm = new FormGroup({
-		individualId: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')])
+		menteeId: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')])
 	})
 
 	constructor(private store:Store) {
 		this.authUser$ = this.store.select(selectUserProfile)
-		this.friendShipDemandResponse$ = this.store.select(selectFriendShipDemandResponse)
-		this.friendShipDemandLoading$ = this.store.select(selectFriendShipDemandLoading)
-		this.friendShipDemandError$ = this.store.select(selectFriendShipDemandError)
+		this.createMentoringResponse$ = this.store.select(selectCreateMentoringResponse)
+		this.createMentoringLoading$ = this.store.select(selectCreateMentoringLoading)
+		this.createMentoringError$ = this.store.select(selectCreateMentoringError)
 	}
 
 	onSubmit() {
 		if(this.myForm.valid) {
-			const receiverId: number  = Number(this.myForm.value.individualId)
-			this.store.dispatch(friendShipDemand({receiverId}))
-			this.requestSend = true
+			const menteeId: number  = Number(this.myForm.value.menteeId)
+			this.store.dispatch(createMentoring({request: {menteeId: menteeId}}))
 		}
 	}
 }
