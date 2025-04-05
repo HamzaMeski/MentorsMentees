@@ -3,7 +3,6 @@ package com.menters.server.components.auth.service;
 import com.menters.server.components.auth.dto.AuthenticationRequest;
 import com.menters.server.components.auth.dto.AuthenticationResponse;
 import com.menters.server.components.auth.dto.UserInfoResponse;
-import com.menters.server.components.user.dto.UserResponseDTO;
 import com.menters.server.components.auth.mapper.AuthMapper;
 import com.menters.server.components.user.repository.ProfileRepository;
 import com.menters.server.components.user.repository.UserRepository;
