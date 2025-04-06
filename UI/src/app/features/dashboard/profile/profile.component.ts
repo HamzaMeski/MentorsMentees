@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf } from '@angular/common';
 import {
 	selectUserProfile,
 	selectUserProfileError,
@@ -24,40 +24,65 @@ import {UpdateRequest} from "../../../core/types/auth/update.types";
         <section class="p-8 max-w-xl mx-auto">
             <h1 class="text-3xl font-bold mb-6">Edit Profile</h1>
 
-            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+            <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div *ngIf="authUserLoading$ | async">Loading user data...</div>
                 <div *ngIf="authUserError$ | async as error" class="text-red-500">{{ error }}</div>
 
                 <div class="flex flex-col">
-                    <label>First Name</label>
+                    <label for="">first name:</label>
                     <input type="text" formControlName="firstName" class="bg-gray-200 text-black p-1 rounded-md">
+                    <div *ngIf="myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched">
+                        <small *ngIf="myForm.get('firstName')?.errors?.['required']" class="text-red-500">first name is
+                            required</small>
+                        <small *ngIf="myForm.get('firstName')?.errors?.['minlength']" class="text-red-500">min length is
+                            3</small>
+                    </div>
                 </div>
 
                 <div class="flex flex-col">
-                    <label>Last Name</label>
+                    <label for="">last name:</label>
                     <input type="text" formControlName="lastName" class="bg-gray-200 text-black p-1 rounded-md">
+                    <div *ngIf="myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched">
+                        <small *ngIf="myForm.get('lastName')?.errors?.['required']" class="text-red-500">last name is
+                            required</small>
+                        <small *ngIf="myForm.get('lastName')?.errors?.['minlength']" class="text-red-500">min length is
+                            3</small>
+                    </div>
                 </div>
 
                 <div class="flex flex-col">
-                    <label>Email</label>
-                    <input type="email" formControlName="email" class="bg-gray-200 text-black p-1 rounded-md">
+                    <label for="">email:</label>
+                    <input type="text" formControlName="email" class="bg-gray-200 text-black p-1 rounded-md">
+                    <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
+                        <small *ngIf="myForm.get('email')?.errors?.['required']" class="text-red-500">Email is
+                            required</small>
+                        <small *ngIf="myForm.get('email')?.errors?.['email']" class="text-red-500">Set a valid
+                            email</small>
+                    </div>
                 </div>
 
                 <div class="flex flex-col">
-                    <label>Phone</label>
+                    <label for="">phone:</label>
                     <input type="text" formControlName="phone" class="bg-gray-200 text-black p-1 rounded-md">
+                    <div *ngIf="myForm.get('phone')?.invalid && myForm.get('phone')?.touched">
+                        <small *ngIf="myForm.get('phone')?.errors?.['required']" class="text-red-500">phone is
+                            required</small>
+                        <small *ngIf="myForm.get('phone')?.errors?.['minlength']" class="text-red-500">min length is
+                            3</small>
+                    </div>
                 </div>
 
                 <div class="flex flex-col">
-                    <label>Bio</label>
+                    <label for="">bio:</label>
                     <textarea formControlName="bio" class="bg-gray-200 text-black p-1 rounded-md"></textarea>
+                    <small>optional</small>
                 </div>
 
                 <button
                     type="submit"
                     class="rounded-full py-2 px-10 text-white transition-all duration-300"
-                    [disabled]="profileForm.invalid"
-                    [ngClass]="profileForm.invalid ? 'bg-blue-300 text-gray-600': 'bg-blue-500 hover:bg-blue-600 cursor-pointer'"
+                    [disabled]="myForm.invalid"
+                    [ngClass]="myForm.invalid ? 'bg-blue-300 text-gray-600': 'bg-blue-500 hover:bg-blue-600 cursor-pointer'"
                 >
                     Update Profile
                 </button>
@@ -70,7 +95,7 @@ export class ProfileComponent implements OnInit{
 	authUserLoading$: Observable<boolean>
 	authUserError$: Observable<any>
 
-	profileForm = new FormGroup({
+	myForm = new FormGroup({
 		firstName: new FormControl('', [Validators.required, Validators.minLength(3)]),
 		lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
 		email: new FormControl('', [Validators.required, Validators.email]),
@@ -88,7 +113,7 @@ export class ProfileComponent implements OnInit{
 			console.log(user)
 
 			if (user) {
-				this.profileForm.patchValue({
+				this.myForm.patchValue({
 					firstName: user.firstName,
 					lastName: user.lastName,
 					email: user.email,
@@ -100,8 +125,8 @@ export class ProfileComponent implements OnInit{
 	}
 
 	onSubmit() {
-		if (this.profileForm.valid) {
-			const request: UpdateRequest = this.profileForm.value as UpdateRequest
+		if (this.myForm.valid) {
+			const request: UpdateRequest = this.myForm.value as UpdateRequest
 			this.store.dispatch(updateUserProfile({ request: request }));
 		}
 	}

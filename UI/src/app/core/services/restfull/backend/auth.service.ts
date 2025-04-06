@@ -24,8 +24,8 @@ export class AuthService {
 		return this.http.post<RegisterResponse>(`${this.API_URL}/users/register`, request)
 	}
 
-	update(request: UpdateRequest): Observable<RegisterResponse> {
-		return this.http.post<UserResponse>(`${this.API_URL}/users/update`, request)
+	update(request: UpdateRequest): Observable<UserResponse> {
+		return this.http.put<UserResponse>(`${this.API_URL}/users`, request)
 	}
 
 	getAuthenticatedUser(): Observable<UserResponse> {
