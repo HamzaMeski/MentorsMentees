@@ -13,12 +13,12 @@ export const dashboardRoutes: Routes = [
 				component: AboutComponent
 			},
 			{
-				path: 'yourMentees',
+				path: 'myMentees',
 				loadChildren: () => import('./mentor/mentor.routes')
 					.then(res => res.mentorRoutes)
 			},
 			{
-				path: 'yourMentors',
+				path: 'myMentors',
 				loadChildren: () => import('./mentee/mentee.routes')
 					.then(res => res.menteeRoutes)
 			},

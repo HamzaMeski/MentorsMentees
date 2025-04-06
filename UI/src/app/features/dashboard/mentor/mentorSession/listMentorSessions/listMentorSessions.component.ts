@@ -25,7 +25,7 @@ import {CommonModule} from "@angular/common";
             <p class="text-xl text-red-500">Error: {{ error }}</p>
         </div>
 
-        <div *ngIf="!(mentorSessionsLoading$ | async) && !(mentorSessionsError$ | async)">
+        <div *ngIf="mentorSessionsResponse$ | async">
             <ng-container *ngIf="mentorSessionsResponse$ | async as sessions">
                 <div *ngIf="sessions.length === 0" class="text-center py-6">
                     <p class="text-lg text-[#949BA4]">No sessions available at the moment.</p>

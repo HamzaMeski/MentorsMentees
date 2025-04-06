@@ -28,13 +28,13 @@ import {
                         <fa-icon [icon]="faHouse" class="text-lg"></fa-icon>
                         <span>About</span>
                     </a>
-                    <a routerLink="/dashboard/yourMentees" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
+                    <a routerLink="/dashboard/myMentees" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
                         <fa-icon [icon]="faUsers" class="text-lg"></fa-icon>
-                        <span>Your Mentees</span>
+                        <span>My Mentees</span>
                     </a>
-                    <a routerLink="/dashboard/yourMentors" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
+                    <a routerLink="/dashboard/myMentors" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
                         <fa-icon [icon]="faChalkboardTeacher" class="text-lg"></fa-icon>
-                        <span>Your Mentors</span>
+                        <span>My Mentors</span>
                     </a>
                     <a routerLink="/dashboard/profile" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
                         <fa-icon [icon]="faUser" class="text-lg"></fa-icon>

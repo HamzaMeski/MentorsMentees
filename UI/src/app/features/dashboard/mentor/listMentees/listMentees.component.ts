@@ -55,8 +55,8 @@ import {RouterLink} from "@angular/router";
                     <td class="p-3">{{ mentee.phone }}</td>
                     <td class="p-3">{{ mentee.bio }}</td>
                 	<td class="p-3">
-	                	<a [routerLink]="['/dashboard/yourMentees/mentorSession', mentee.id]" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-full shadow transition">
-					    	Manage Session
+	                	<a [routerLink]="['/dashboard/myMentees/mentorSession', mentee.id]" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-full shadow transition">
+					    	Manage Sessions
 					  	</a>
                     </td>
                 </tr>
