@@ -84,9 +84,5 @@ export class ListMentorsComponent implements OnInit{
 
 	ngOnInit() {
 		this.store.dispatch(getMentorsOfMentee())
-
-		this.mentorsOfMenteeResponse$.subscribe(val=> {
-			console.log(val)
-		})
 	}
 }

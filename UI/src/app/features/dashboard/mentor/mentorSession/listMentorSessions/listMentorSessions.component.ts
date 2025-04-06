@@ -66,9 +66,5 @@ export class ListMentorSessionsComponent implements OnInit {
 	ngOnInit() {
 		this.menteeId = Number(this.route.snapshot.paramMap.get('id'));
 		this.store.dispatch(getMentorSessions({menteeId: this.menteeId}))
-
-		this.mentorSessionsResponse$.subscribe(val=> {
-			console.log(val)
-		})
 	}
 }

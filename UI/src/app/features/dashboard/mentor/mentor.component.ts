@@ -15,6 +15,4 @@ import {ListMenteesComponent} from "./listMentees/listMentees.component";
         <list-mentees></list-mentees>
 	`
 })
-export class MentorComponent {
-
-}
+export class MentorComponent {}

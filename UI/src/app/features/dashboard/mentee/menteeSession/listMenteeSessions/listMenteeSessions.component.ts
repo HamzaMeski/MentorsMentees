@@ -65,6 +65,5 @@ export class ListMenteeSessionsComponent implements OnInit{
 	ngOnInit() {
 		this.mentorId = Number(this.route.snapshot.paramMap.get('id'));
 		this.store.dispatch(getMenteeSessions({mentorId: this.mentorId}))
-		console.log('dispatching...')
 	}
 }

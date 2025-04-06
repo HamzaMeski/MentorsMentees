@@ -22,16 +22,13 @@ export class SessionEffects{
 		this.create$ = createEffect(() =>
 			this.actions$.pipe(
 				ofType(createSession),
-				mergeMap(({ request }) => {
-					console.log('REQ: ', request)
-					return this.sessionService.create(request).pipe(
+				mergeMap(({ request }) =>
+					this.sessionService.create(request).pipe(
 						map((response) => createSessionSuccess({ response })),
 						catchError((error) =>
 							of(createSessionFailure({ error: error.message }))
 						)
 					)
-				}
-
 				)
 			)
 		);
@@ -53,16 +50,13 @@ export class SessionEffects{
 		this.getMenteeSessions$ = createEffect(() =>
 			this.actions$.pipe(
 				ofType(getMenteeSessions),
-				mergeMap(({mentorId}) => {
-					console.log('MENTORID: ', mentorId)
-					return	this.sessionService.getMenteeSessions(mentorId).pipe(
+				mergeMap(({mentorId}) =>
+					this.sessionService.getMenteeSessions(mentorId).pipe(
 						map((response) => getMenteeSessionsSuccess({ response })),
 						catchError((error) =>
 							of(getMenteeSessionsFailure({ error: error.message }))
 						)
 					)
-				}
-
 				)
 			)
 		);
