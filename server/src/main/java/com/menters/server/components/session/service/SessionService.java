@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SessionService {
     SessionResponseDTO create(SessionRequestDTO requestDTO, Long mentorId);
-    List<SessionResponseDTO> getMentorSessions(Long mentorId);
-    List<SessionResponseDTO> getMenteeSessions(Long menteeId);
+    List<SessionResponseDTO> getMentorSessions(Long mentorId, Long menteeId);
+    List<SessionResponseDTO> getMenteeSessions(Long menteeId, Long mentorId);
     void deleteSession(Long sessionId);
 }

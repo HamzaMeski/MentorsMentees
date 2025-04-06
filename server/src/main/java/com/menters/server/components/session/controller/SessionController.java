@@ -30,18 +30,20 @@ public class SessionController {
         return new ResponseEntity<>(sessionService.create(requestDTO, mentorId), HttpStatus.CREATED);
     }
 
-    @GetMapping("/mentorSessions")
+    @GetMapping("/mentorSessions/{menteeId}")
     private ResponseEntity<List<SessionResponseDTO>> getMentorSessions(
+            @PathVariable Long menteeId,
             @CurrentUser UserPrincipal authUser
             ) {
-        return ResponseEntity.ok(sessionService.getMentorSessions(authUser.getId()));
+        return ResponseEntity.ok(sessionService.getMentorSessions(authUser.getId(), menteeId));
     }
 
-    @GetMapping("/menteeSessions")
+    @GetMapping("/menteeSessions/{mentorId}")
     private ResponseEntity<List<SessionResponseDTO>> getMenteeSessions(
+            @PathVariable Long mentorId,
             @CurrentUser UserPrincipal authUser
     ) {
-        return ResponseEntity.ok(sessionService.getMenteeSessions(authUser.getId()));
+        return ResponseEntity.ok(sessionService.getMenteeSessions(authUser.getId(), mentorId));
     }
 
     @DeleteMapping("/{sessionId}")

@@ -40,15 +40,15 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public List<SessionResponseDTO> getMentorSessions(Long mentorId) {
-        return sessionRepository.getMentorSessions(mentorId).stream()
+    public List<SessionResponseDTO> getMentorSessions(Long mentorId, Long menteeId) {
+        return sessionRepository.getMentorSessions(mentorId, menteeId).stream()
                 .map(sessionMapper::toResponse)
                 .toList();
     }
 
     @Override
-    public List<SessionResponseDTO> getMenteeSessions(Long menteeId) {
-        return sessionRepository.getMenteeSessions(menteeId).stream()
+    public List<SessionResponseDTO> getMenteeSessions(Long menteeId, Long mentorId) {
+        return sessionRepository.getMenteeSessions(menteeId, mentorId).stream()
                 .map(sessionMapper::toResponse)
                 .toList();
     }

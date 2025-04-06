@@ -12,14 +12,14 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     @Query("""
         SELECT s
         FROM Session s
-        WHERE(s.mentor.id = :mentorId)
+        WHERE(s.mentor.id = :mentorId AND s.mentee.id = :menteeId)
     """)
-    List<Session> getMentorSessions(Long mentorId);
+    List<Session> getMentorSessions(Long mentorId, Long menteeId);
 
     @Query("""
         SELECT s
         FROM Session s
-        WHERE(s.mentee.id = :menteeId)
+        WHERE(s.mentee.id = :menteeId AND s.mentor.id = :mentorId)
     """)
-    List<Session> getMenteeSessions(Long menteeId);
+    List<Session> getMenteeSessions(Long menteeId, Long mentorId);
 }
