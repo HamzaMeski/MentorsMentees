@@ -7,15 +7,10 @@ import {
 	faChalkboardTeacher,
 	faUser,
 	faCog,
-	faRightFromBracket
+	faRightFromBracket, faBars
 } from "@fortawesome/free-solid-svg-icons";
 import {LogoutService} from "../../core/services/helpers/logout.service";
 import {Store} from "@ngrx/store";
-import {
-	selectUserProfile,
-	selectUserProfileError,
-	selectUserProfileLoading
-} from "../../ngrx/selectors/userProfile/userProfile.selectors";
 
 @Component({
 	standalone: true,
@@ -26,40 +21,70 @@ import {
 		RouterLink
 	],
 	template: `
-        <section class="h-dvh flex bg-[#1e1f22] text-white">
+        <section class="h-dvh flex bg-gradient-to-br from-gray-900 to-zinc-900 text-gray-100">
             <!-- Sidebar -->
-            <aside class="w-64 bg-[#2e2f33] p-4 border-r border-[#3a3b3f]">
-                <h2 class="text-xl font-semibold mb-6">Dashboard</h2>
-                <nav class="flex flex-col gap-4">
-                    <a routerLink="/dashboard/about" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
-                        <fa-icon [icon]="faHouse" class="text-lg"></fa-icon>
-                        <span>About</span>
-                    </a>
-                    <a routerLink="/dashboard/myMentees" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
-                        <fa-icon [icon]="faUsers" class="text-lg"></fa-icon>
-                        <span>My Mentees</span>
-                    </a>
-                    <a routerLink="/dashboard/myMentors" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
-                        <fa-icon [icon]="faChalkboardTeacher" class="text-lg"></fa-icon>
-                        <span>My Mentors</span>
-                    </a>
-                    <a routerLink="/dashboard/profile" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
-                        <fa-icon [icon]="faUser" class="text-lg"></fa-icon>
-                        <span>Profile</span>
-                    </a>
-                    <a routerLink="/settings" class="hover:text-blue-400 transition cursor-pointer flex items-center gap-2">
-                        <fa-icon [icon]="faCog" class="text-lg"></fa-icon>
-                        <span>Settings</span>
-                    </a>
-                    <div (click)="logout()" class="hover:text-red-400 transition cursor-pointer flex items-center gap-2">
-                        <fa-icon [icon]="faRightFromBracket" class="text-lg"></fa-icon>
-                        <span>Logout</span>
+            <aside class="w-72 bg-gray-800/50 backdrop-blur-lg border-r border-gray-700/50 flex flex-col">
+                <!-- Brand/Logo Area -->
+                <div class="p-6 border-b border-gray-700/50">
+                    <h2 class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                        Dashboard
+                    </h2>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="flex-1 p-4 space-y-2">
+                    <!-- Navigation Group -->
+                    <div class="space-y-2">
+                        <a routerLink="/dashboard/about"
+                           routerLinkActive="bg-indigo-500/10 text-indigo-400 border-indigo-500"
+                           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 hover:bg-gray-700/50 border border-transparent group">
+                            <fa-icon [icon]="faHouse" class="text-lg w-5 h-5 transition-transform group-hover:scale-110"></fa-icon>
+                            <span>About</span>
+                        </a>
+
+                        <a routerLink="/dashboard/myMentees"
+                           routerLinkActive="bg-indigo-500/10 text-indigo-400 border-indigo-500"
+                           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 hover:bg-gray-700/50 border border-transparent group">
+                            <fa-icon [icon]="faUsers" class="text-lg w-5 h-5 transition-transform group-hover:scale-110"></fa-icon>
+                            <span>My Mentees</span>
+                        </a>
+
+                        <a routerLink="/dashboard/myMentors"
+                           routerLinkActive="bg-indigo-500/10 text-indigo-400 border-indigo-500"
+                           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 hover:bg-gray-700/50 border border-transparent group">
+                            <fa-icon [icon]="faChalkboardTeacher" class="text-lg w-5 h-5 transition-transform group-hover:scale-110"></fa-icon>
+                            <span>My Mentors</span>
+                        </a>
+	                    
+                        <a routerLink="/dashboard/profile"
+                           routerLinkActive="bg-indigo-500/10 text-indigo-400 border-indigo-500"
+                           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 hover:bg-gray-700/50 border border-transparent group">
+                            <fa-icon [icon]="faUser" class="text-lg w-5 h-5 transition-transform group-hover:scale-110"></fa-icon>
+                            <span>Profile</span>
+                        </a>
+
+                        <a routerLink="/settings"
+                           routerLinkActive="bg-indigo-500/10 text-indigo-400 border-indigo-500"
+                           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 hover:bg-gray-700/50 border border-transparent group">
+                            <fa-icon [icon]="faCog" class="text-lg w-5 h-5 transition-transform group-hover:scale-110"></fa-icon>
+                            <span>Settings</span>
+                        </a>
                     </div>
                 </nav>
+
+                <!-- Bottom Section with Logout -->
+                <div class="p-4 border-t border-gray-700/50">
+                    <button (click)="logout()"
+                            class="flex items-center gap-3 w-full px-4 py-3 rounded-lg transition-all duration-300 hover:text-red-400 text-gray-400 group">
+                        <fa-icon [icon]="faRightFromBracket" class="text-lg w-5 h-5 transition-transform group-hover:scale-110"></fa-icon>
+                        <span>Logout</span>
+                    </button>
+                </div>
             </aside>
 
             <!-- Main Content -->
-            <main class="flex-1 overflow-auto p-6">
+            <main class="flex-1 overflow-auto">
+                <!-- Page Content -->
                 <router-outlet></router-outlet>
             </main>
         </section>
@@ -85,4 +110,6 @@ export class DashboardComponent {
 	logout() {
 		this.logoutService.logout()
 	}
+
+	protected readonly faBars = faBars;
 }
