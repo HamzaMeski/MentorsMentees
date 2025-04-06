@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {SessionService} from "../../../core/services/restfull/backend/session.service";
-import {catchError, map, mergeMap, of} from "rxjs";
+import {catchError, map, mergeMap, of, tap} from "rxjs";
 import {
 	createSession,
 	createSessionFailure,

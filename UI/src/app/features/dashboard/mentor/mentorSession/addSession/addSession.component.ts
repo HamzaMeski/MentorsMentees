@@ -8,7 +8,7 @@ import {
 	selectCreateSessionLoading,
 	selectCreateSessionResponse
 } from "../../../../../ngrx/selectors/session/session.selectors";
-import {createSession} from "../../../../../ngrx/actions/session/session.actions";
+import {createSession, getMentorSessions} from "../../../../../ngrx/actions/session/session.actions";
 
 @Component({
 	standalone: true,
@@ -28,7 +28,7 @@ import {createSession} from "../../../../../ngrx/actions/session/session.actions
             <div class="bg-[#2B2D31] w-full max-w-md p-6 pt-2 rounded-2xl shadow-lg">
                 <!-- Close Button -->
 	            <div class="flex justify-end">
-                    <button (click)="closeModal()" class=" text-white text-2xl hover:text-gray-400 focus:outline-none transition-colors duration-200 ease-in-out">
+                    <button (click)="closeModal()" class=" text-white text-2xl hover:text-gray-400 focus:outline-none transition-colors duration-200 ease-in-out cursor-pointer">
                         &times;
                     </button>
 	            </div>
@@ -119,6 +119,10 @@ export class AddSessionComponent implements OnInit {
 					sessionDate: this.myForm.value.sessionDate!,
 				}
 			}))
+
+			this.createSessionResponse$.subscribe(()=> {
+				this.store.dispatch(getMentorSessions({menteeId: this.menteeId}))
+			})
 		}
 	}
 
