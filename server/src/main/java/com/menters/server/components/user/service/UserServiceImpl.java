@@ -1,6 +1,7 @@
 package com.menters.server.components.user.service;
 
-import com.menters.server.components.user.dto.UserRequestDTO;
+import com.menters.server.components.user.dto.RegisterUserDTO;
+import com.menters.server.components.user.dto.UpdateUserDTO;
 import com.menters.server.components.user.dto.UserResponseDTO;
 import com.menters.server.components.user.mapper.UserMapper;
 import com.menters.server.components.user.repository.ProfileRepository;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService  {
     private final ProfileRepository profileRepository;
 
     @Override
-    public UserResponseDTO register(UserRequestDTO requestDTO) {
+    public UserResponseDTO register(RegisterUserDTO requestDTO) {
         if(userRepository.existsByEmail(requestDTO.email())) {
             throw new DuplicateResourceException("Email already exists. ");
         }
@@ -46,6 +47,22 @@ public class UserServiceImpl implements UserService  {
                 .orElseThrow();
         return userMapper.toResponse(user, profile);
     }
+
+    @Override
+    public UserResponseDTO update(UpdateUserDTO requestDTO, Long id) {
+        User user = findUserById(id);
+        user.setEmail(requestDTO.email());
+
+        Profile profile = profileRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("profile not found."));
+        profile.setFirstName(requestDTO.firstName());
+        profile.setLastName(requestDTO.lastName());
+        profile.setPhone(requestDTO.phone());
+        profile.setBio(requestDTO.bio());
+
+        return userMapper.toResponse(userRepository.save(user), profileRepository.save(profile));
+    }
+
 
     @Override
     public void deleteUser(Long id) {

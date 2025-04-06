@@ -1,6 +1,6 @@
 package com.menters.server.components.user.mapper;
 
-import com.menters.server.components.user.dto.UserRequestDTO;
+import com.menters.server.components.user.dto.RegisterUserDTO;
 import com.menters.server.components.user.dto.UserResponseDTO;
 import com.menters.server.entities.Profile;
 import com.menters.server.entities.User;
@@ -11,13 +11,13 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
     @Mapping(target = "email", source = "requestDTO.email")
     @Mapping(target = "password", source = "requestDTO.password")
-    User toUserEntity(UserRequestDTO requestDTO);
+    User toUserEntity(RegisterUserDTO requestDTO);
 
     @Mapping(target = "firstName", source = "requestDTO.firstName")
     @Mapping(target = "lastName", source = "requestDTO.lastName")
     @Mapping(target = "phone", source = "requestDTO.phone")
     @Mapping(target = "bio", source = "requestDTO.bio")
-    Profile toProfileEntity(UserRequestDTO requestDTO);
+    Profile toProfileEntity(RegisterUserDTO requestDTO);
 
     @Mapping(target = "id", source = "user.id")
     @Mapping(target = "email", source = "user.email")
