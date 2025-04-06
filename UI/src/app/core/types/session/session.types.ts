@@ -2,7 +2,7 @@
 export interface SessionRequest {
 	menteeId: number,
 	subject: string,
-	sessionDate: Date
+	sessionDate: string
 }
 
 export interface SessionResponse {

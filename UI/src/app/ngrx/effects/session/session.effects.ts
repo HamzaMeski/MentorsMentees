@@ -22,13 +22,16 @@ export class SessionEffects{
 		this.create$ = createEffect(() =>
 			this.actions$.pipe(
 				ofType(createSession),
-				mergeMap(({ request }) =>
-					this.sessionService.create(request).pipe(
+				mergeMap(({ request }) => {
+					console.log('REQ: ', request)
+					return this.sessionService.create(request).pipe(
 						map((response) => createSessionSuccess({ response })),
 						catchError((error) =>
 							of(createSessionFailure({ error: error.message }))
 						)
 					)
+				}
+
 				)
 			)
 		);

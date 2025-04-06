@@ -1,14 +1,14 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {
-	selectCreateMentoringError,
-	selectCreateMentoringLoading,
-	selectCreateMentoringResponse
-} from "../../../../../ngrx/selectors/mentoring/mentoring.selectors";
-import {createMentoring} from "../../../../../ngrx/actions/mentoring/mentoring.actions";
+	selectCreateSessionError,
+	selectCreateSessionLoading,
+	selectCreateSessionResponse
+} from "../../../../../ngrx/selectors/session/session.selectors";
+import {createSession} from "../../../../../ngrx/actions/session/session.actions";
 
 @Component({
 	standalone: true,
@@ -17,31 +17,42 @@ import {createMentoring} from "../../../../../ngrx/actions/mentoring/mentoring.a
 		AsyncPipe,
 		FormsModule,
 		NgIf,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		NgClass
 	],
 	template: `
-        <div class="flex-1 p-6 flex flex-col">
-            <!-- Header -->
-            <h2 class="text-white text-[17px] font-semibold mb-2">MENTORING</h2>
-            <p class="text-[#949BA4] text-[14px] mb-4">You can create mentoring relationships with other users.</p>
+        <!-- Modal Container -->
+        <div class="fixed inset-0 z-50 flex items-center justify-center">
+            <!-- Modal Content -->
+            <div class="bg-[#2B2D31] w-full max-w-md p-6 rounded-2xl shadow-lg">
+                <!-- Modal Header -->
+                <div class="mb-4">
+                    <h2 class="text-white text-[18px] font-semibold">Session Schedule</h2>
+                    <p class="text-[#949BA4] text-[14px]">You can create sessions with your mentees.</p>
+                </div>
 
-            <!-- Form Section -->
-            <div class="mb-8">
-                <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="bg-[#1E1F22] flex p-3 rounded-lg">
+                <!-- Form -->
+                <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="space-y-4">
                     <input
-                        formControlName="menteeId"
-                        type="number"
-                        placeholder="You can add friends with their Discord usernames"
-                        class="bg-transparent border-none w-full text-[#DBDEE1] placeholder-[#949BA4] text-[16px] p-2 focus:ring-0 focus:outline-none"
-                    >
+                        formControlName="subject"
+                        placeholder="Set session subject"
+                        class="bg-[#1E1F22] border border-[#313338] rounded-md w-full text-[#DBDEE1] placeholder-[#949BA4] text-[15px] p-3 focus:outline-none focus:ring-2 focus:ring-[#5865F2]"
+                    />
+
+                    <input
+                        type="datetime-local"
+                        formControlName="sessionDate"
+                        class="bg-[#1E1F22] border border-[#313338] rounded-md w-full text-[#DBDEE1] placeholder-[#949BA4] text-[15px] p-3 focus:outline-none focus:ring-2 focus:ring-[#5865F2]"
+                    />
+
                     <button
                         [disabled]="myForm.invalid"
                         [ngClass]="myForm.invalid ? 'bg-[#4752C4] opacity-50 cursor-not-allowed' : 'bg-[#5865F2] hover:bg-[#4752C4]'"
-                        class="w-48 p-2 rounded text-white text-[14px] flex items-center justify-center transition-colors"
+                        class="w-full p-3 rounded-md text-white text-[14px] font-medium flex items-center justify-center transition-colors"
                         type="submit"
                     >
-                        <div *ngIf="!(createMentoringLoading$ | async)">Create Mentoring</div>
-                        <div *ngIf="createMentoringLoading$ | async" class="w-6 h-6">
+                        <div *ngIf="!(createSessionLoading$ | async)">Create Mentoring</div>
+                        <div *ngIf="createSessionLoading$ | async" class="w-6 h-6">
                             <svg aria-hidden="true" class="w-5 h-5 text-[#1E1F22] animate-spin fill-white"
                                  viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -55,56 +66,51 @@ import {createMentoring} from "../../../../../ngrx/actions/mentoring/mentoring.a
                     </button>
                 </form>
 
-                <!-- Validation Messages -->
-                <div *ngIf="myForm.get('individualId')?.invalid && myForm.get('individualId')?.touched"
-                     class="mt-2">
-                    <small *ngIf="myForm.get('individualId')?.errors?.['required']"
-                           class="text-red-500 text-[12px]">Individual ID is required</small>
-                    <small *ngIf="myForm.get('individualId')?.errors?.['pattern']" class="text-red-500 text-[12px]">Individual
-                        ID should be a number</small>
+                <!-- Response / Error Messages -->
+                <div *ngIf="createSessionResponse$ | async" class="mt-4 text-green-500 text-[15px]">
+                    Session Schedule Created Successfully
                 </div>
-                <div *ngIf="createMentoringResponse$ | async">
-                    <div class="mt-2 text-green-500 text-[18px]">
-                        Request Send Successfully
-                    </div>
-                </div>
-
-                <div *ngIf="createMentoringError$ | async as error" class="mt-2 text-red-500 text-[18px]">
+                <div *ngIf="createSessionError$ | async as error" class="mt-4 text-red-500 text-[15px]">
                     {{ error }}
                 </div>
             </div>
         </div>
 	`
 })
-export class AddSessionComponent implements OnInit{
+export class AddSessionComponent implements OnInit {
+	createSessionResponse$
+	createSessionLoading$
+	createSessionError$
 
-	mentorId!:number
+	menteeId!: number
 
-	constructor(private route: ActivatedRoute) {
+	constructor(
+		private route: ActivatedRoute,
+		private store: Store
+	) {
+		this.createSessionResponse$ = this.store.select(selectCreateSessionResponse)
+		this.createSessionLoading$ = this.store.select(selectCreateSessionLoading)
+		this.createSessionError$ = this.store.select(selectCreateSessionError)
 	}
 
 	ngOnInit() {
-		this.mentorId = Number(this.route.snapshot.paramMap.get('id'));
+		this.menteeId = Number(this.route.snapshot.paramMap.get('id'));
 	}
-
-	createMentoringResponse$
-	createMentoringLoading$
-	createMentoringError$
 
 	myForm = new FormGroup({
-		menteeId: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')])
+		subject: new FormControl('', [Validators.required]),
+		sessionDate: new FormControl('', [Validators.required]),
 	})
 
-	constructor(private store:Store) {
-		this.createMentoringResponse$ = this.store.select(selectCreateMentoringResponse)
-		this.createMentoringLoading$ = this.store.select(selectCreateMentoringLoading)
-		this.createMentoringError$ = this.store.select(selectCreateMentoringError)
-	}
-
 	onSubmit() {
-		if(this.myForm.valid) {
-			const menteeId: number  = Number(this.myForm.value.menteeId)
-			this.store.dispatch(createMentoring({request: {menteeId: menteeId}}))
+		if (this.myForm.valid) {
+			this.store.dispatch(createSession({
+				request: {
+					menteeId: this.menteeId,
+					subject: this.myForm.value.subject!,
+					sessionDate: this.myForm.value.sessionDate!,
+				}
+			}))
 		}
 	}
 }
