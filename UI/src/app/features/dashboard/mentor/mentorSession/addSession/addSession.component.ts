@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -23,14 +23,21 @@ import {createSession} from "../../../../../ngrx/actions/session/session.actions
 	template: `
         <!-- Modal Container -->
         <div class="fixed inset-0 z-50 flex items-center justify-center">
+          
             <!-- Modal Content -->
-            <div class="bg-[#2B2D31] w-full max-w-md p-6 rounded-2xl shadow-lg">
+            <div class="bg-[#2B2D31] w-full max-w-md p-6 pt-2 rounded-2xl shadow-lg">
+                <!-- Close Button -->
+	            <div class="flex justify-end">
+                    <button (click)="closeModal()" class=" text-white text-2xl hover:text-gray-400 focus:outline-none transition-colors duration-200 ease-in-out">
+                        &times;
+                    </button>
+	            </div>
+
                 <!-- Modal Header -->
                 <div class="mb-4">
                     <h2 class="text-white text-[18px] font-semibold">Session Schedule</h2>
                     <p class="text-[#949BA4] text-[14px]">You can create sessions with your mentees.</p>
                 </div>
-
                 <!-- Form -->
                 <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="space-y-4">
                     <input
@@ -81,6 +88,7 @@ export class AddSessionComponent implements OnInit {
 	createSessionResponse$
 	createSessionLoading$
 	createSessionError$
+	@Output() close = new EventEmitter<void>()
 
 	menteeId!: number
 
@@ -112,5 +120,9 @@ export class AddSessionComponent implements OnInit {
 				}
 			}))
 		}
+	}
+
+	closeModal() {
+		this.close.emit()
 	}
 }
