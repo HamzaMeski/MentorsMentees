@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {AsyncPipe, CommonModule, NgClass} from "@angular/common";
@@ -6,7 +6,7 @@ import {
 	selectCreateMentoringError,
 	selectCreateMentoringLoading, selectCreateMentoringResponse
 } from "../../../../ngrx/selectors/mentoring/mentoring.selectors";
-import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.actions";
+import {createMentoring, getMenteesOfMentor} from "../../../../ngrx/actions/mentoring/mentoring.actions";
 
 
 @Component({
@@ -77,7 +77,7 @@ import {createMentoring} from "../../../../ngrx/actions/mentoring/mentoring.acti
         </section>
 	`
 })
-export class AddMentorComponent {
+export class AddMentorComponent implements OnInit{
 	createMentoringResponse$
 	createMentoringLoading$
 	createMentoringError$
@@ -97,5 +97,11 @@ export class AddMentorComponent {
 			const menteeId: number  = Number(this.myForm.value.menteeId)
 			this.store.dispatch(createMentoring({request: {menteeId: menteeId}}))
 		}
+	}
+
+	ngOnInit() {
+		this.createMentoringResponse$.subscribe(()=> {
+			this.store.dispatch(getMenteesOfMentor())
+		})
 	}
 }
