@@ -11,5 +11,5 @@ export interface SessionResponse {
 	subject: string,
 	sessionDate: Date,
 	createdAt: Date,
-	updateAt: Date
+	updatedAt: Date
 }
