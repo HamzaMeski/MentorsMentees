@@ -39,22 +39,22 @@ export class SessionEffects{
 		this.getMentorSessions$ = createEffect(() =>
 			this.actions$.pipe(
 				ofType(getMentorSessions),
-				mergeMap(() =>
-					this.sessionService.getMentorSessions().pipe(
+				mergeMap(({menteeId}) => {
+					return this.sessionService.getMentorSessions(menteeId).pipe(
 						map((response) => getMentorSessionsSuccess({ response })),
 						catchError((error) =>
 							of(getMentorSessionsFailure({ error: error.message }))
 						)
-					)
-				)
+					);
+				})
 			)
 		);
 
 		this.getMenteeSessions$ = createEffect(() =>
 			this.actions$.pipe(
 				ofType(getMenteeSessions),
-				mergeMap(() =>
-					this.sessionService.getMenteeSessions().pipe(
+				mergeMap(({mentorId}) =>
+					this.sessionService.getMenteeSessions(mentorId).pipe(
 						map((response) => getMenteeSessionsSuccess({ response })),
 						catchError((error) =>
 							of(getMenteeSessionsFailure({ error: error.message }))

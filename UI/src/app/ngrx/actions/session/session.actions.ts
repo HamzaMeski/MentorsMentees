@@ -21,7 +21,8 @@ export const createSessionFailure = createAction(
 
 // Get Mentor Sessions
 export const getMentorSessions = createAction(
-	'[Session] Get Mentor Sessions'
+	'[Session] Get Mentor Sessions',
+	props<{ menteeId: number }>()
 );
 
 export const getMentorSessionsSuccess = createAction(
@@ -37,7 +38,8 @@ export const getMentorSessionsFailure = createAction(
 
 // Get Mentee Sessions
 export const getMenteeSessions = createAction(
-	'[Session] Get Mentee Sessions'
+	'[Session] Get Mentee Sessions',
+	props<{ mentorId: number }>()
 );
 
 export const getMenteeSessionsSuccess = createAction(

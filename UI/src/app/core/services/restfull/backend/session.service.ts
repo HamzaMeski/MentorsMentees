@@ -17,11 +17,11 @@ export class SessionService {
 		return this.http.post<SessionResponse>(`${this.API_URL}/session`, request)
 	}
 
-	getMentorSessions(): Observable<SessionResponse[]> {
-		return this.http.get<SessionResponse[]>(`${this.API_URL}/session/mentorSessions`)
+	getMentorSessions(menteeId: number): Observable<SessionResponse[]> {
+		return this.http.get<SessionResponse[]>(`${this.API_URL}/session/mentorSessions/${menteeId}`)
 	}
 
-	getMenteeSessions(): Observable<SessionResponse[]> {
-		return this.http.get<SessionResponse[]>(`${this.API_URL}/session/menteeSessions`)
+	getMenteeSessions(mentorId: number): Observable<SessionResponse[]> {
+		return this.http.get<SessionResponse[]>(`${this.API_URL}/session/menteeSessions/${mentorId}`)
 	}
 }
