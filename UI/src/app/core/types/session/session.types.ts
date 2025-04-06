@@ -6,6 +6,7 @@ export interface SessionRequest {
 }
 
 export interface SessionResponse {
+	id: number,
 	mentorId: number,
 	menteeId: number,
 	subject: string,
