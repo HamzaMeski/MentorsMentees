@@ -23,14 +23,13 @@ export class RegisterEffects {
 					return this.authService.register(request).pipe(
 						map(response => registerSuccess({response})),
 						catchError(err => {
-							const error: string = err?.error?.message || 'registration failed'
+							const error: string = err.error.message
 							return of(registerFailure({error}))
 						})
 					)
 				})
 			)
 		)
-
 
 		this.registerSuccess$ = createEffect(() =>
 				this.actions$.pipe(

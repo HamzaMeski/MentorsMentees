@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {RegisterRequest, RegisterResponse} from "../../../types/auth/register.types";
 import {UserResponse} from "../../../types/user/user.types";
 import {serverApiUrl} from "../../../../../environments/env";
+import {UpdateRequest} from "../../../types/auth/update.types";
 
 
 @Injectable({
@@ -21,6 +22,10 @@ export class AuthService {
 
 	register(request: RegisterRequest): Observable<RegisterResponse> {
 		return this.http.post<RegisterResponse>(`${this.API_URL}/users/register`, request)
+	}
+
+	update(request: UpdateRequest): Observable<RegisterResponse> {
+		return this.http.post<UserResponse>(`${this.API_URL}/users/update`, request)
 	}
 
 	getAuthenticatedUser(): Observable<UserResponse> {

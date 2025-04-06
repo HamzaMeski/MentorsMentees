@@ -9,6 +9,13 @@ import {
 	faCog,
 	faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
+import {LogoutService} from "../../core/services/helpers/logout.service";
+import {Store} from "@ngrx/store";
+import {
+	selectUserProfile,
+	selectUserProfileError,
+	selectUserProfileLoading
+} from "../../ngrx/selectors/userProfile/userProfile.selectors";
 
 @Component({
 	standalone: true,
@@ -67,11 +74,15 @@ export class DashboardComponent {
 	protected readonly faCog = faCog;
 	protected readonly faRightFromBracket = faRightFromBracket;
 
-	constructor(private router: Router) {
+	constructor(
+		private logoutService: LogoutService,
+		private router: Router,
+		private store: Store
+	) {
 		// this.router.navigate(["/dashboard/yourMentees"]);
 	}
 
 	logout() {
-		this.router.navigate(['/login']);
+		this.logoutService.logout()
 	}
 }

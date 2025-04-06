@@ -10,7 +10,10 @@ import {RegisterEffects} from "./ngrx/effects/auth/register.effects";
 import {HttpHandlerFn, provideHttpClient, withInterceptors} from "@angular/common/http";
 import {loginReducers} from "./ngrx/reducers/auth/login.reducers";
 import {LoginEffects} from "./ngrx/effects/auth/login.effects";
-import {userProfileReducers} from "./ngrx/reducers/userProfile/userProfile.reducers";
+import {
+    userProfileGetReducer,
+    userProfileUpdateReducer
+} from "./ngrx/reducers/userProfile/userProfile.reducers";
 import {UserProfileEffects} from "./ngrx/effects/userProfile/userProfile.effects";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import {
@@ -42,7 +45,8 @@ export const appConfig: ApplicationConfig = {
         provideStore({
             register: registerReducers,
             login: loginReducers,
-            userProfile: userProfileReducers,
+            getUserProfile: userProfileGetReducer,
+            updateUserProfile: userProfileUpdateReducer,
             createMentoring: createMentoringReducer,
             getMenteesOfMentor: getMenteesOfMentorReducer,
             getMentorsOfMentee: getMentorsOfMenteeReducer,
