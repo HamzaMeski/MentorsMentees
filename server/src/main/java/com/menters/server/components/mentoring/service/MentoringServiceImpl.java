@@ -65,12 +65,12 @@ public class MentoringServiceImpl implements MentoringService {
                 .map(mentoringMapper::toResponse)
                 .toList();
 
-        List<Long> menteeIds = mentoringResponseDTOs.stream()
+        List<Long> menteesIds = mentoringResponseDTOs.stream()
                 .map(MentoringResponseDTO::menteeId)
                 .toList();
 
-        List<User> users = userRepository.findAllByIdIn(menteeIds);
-        List<Profile> profiles = profileRepository.findAllByUserIdIn(menteeIds);
+        List<User> users = userRepository.findAllByIdIn(menteesIds);
+        List<Profile> profiles = profileRepository.findAllByUserIdIn(menteesIds);
 
         List<UserResponseDTO> response  = new ArrayList<>();
         for(int i = 0; i < users.size(); i++) {
@@ -90,12 +90,12 @@ public class MentoringServiceImpl implements MentoringService {
                 .map(mentoringMapper::toResponse)
                 .toList();
 
-        List<Long> menteeIds = mentoringResponseDTOs.stream()
-                .map(MentoringResponseDTO::menteeId)
+        List<Long> mentorsIds = mentoringResponseDTOs.stream()
+                .map(MentoringResponseDTO::mentorId)
                 .toList();
 
-        List<User> users = userRepository.findAllByIdIn(menteeIds);
-        List<Profile> profiles = profileRepository.findAllByUserIdIn(menteeIds);
+        List<User> users = userRepository.findAllByIdIn(mentorsIds);
+        List<Profile> profiles = profileRepository.findAllByUserIdIn(mentorsIds);
 
         List<UserResponseDTO> response  = new ArrayList<>();
         for(int i = 0; i < users.size(); i++) {
