@@ -1,17 +1,15 @@
 import {Component} from "@angular/core";
-import {AddMentorComponent} from "../mentor/addMentor/addMentor.component";
-import {ListMenteesComponent} from "../mentor/listMentees/listMentees.component";
+import {ListMentorsComponent} from "./listMentors/listMentors.component";
 
 
 @Component({
 	standalone: true,
 	selector: 'mentee',
 	imports: [
-		AddMentorComponent,
-		ListMenteesComponent
+		ListMentorsComponent
 	],
 	template: `
-		Mentee section
+		<list-mentors></list-mentors>
 	`
 })
 export class MenteeComponent {

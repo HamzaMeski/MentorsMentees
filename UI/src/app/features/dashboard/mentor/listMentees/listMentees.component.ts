@@ -12,7 +12,7 @@ import {RouterLink} from "@angular/router";
 
 @Component({
 	standalone: true,
-	selector: 'mentees-list',
+	selector: 'list-mentees',
 	imports: [
 		AsyncPipe,
 		CommonModule,

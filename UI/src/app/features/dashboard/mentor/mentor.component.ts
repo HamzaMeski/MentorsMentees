@@ -12,7 +12,7 @@ import {ListMenteesComponent} from "./listMentees/listMentees.component";
 	],
 	template: `
         <add-mentor></add-mentor>
-        <mentees-list></mentees-list>
+        <list-mentees></list-mentees>
 	`
 })
 export class MentorComponent {
