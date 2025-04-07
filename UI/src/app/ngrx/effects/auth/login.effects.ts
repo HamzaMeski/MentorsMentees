@@ -40,7 +40,7 @@ export class LoginEffects {
 					tap(({ response }) => {
 						const authUserToken = response.token;
 						localStorage.setItem('authUserToken', authUserToken);
-						this.router.navigate(['/dashboard']);
+						this.router.navigate(['/dashboard/about']);
 					})
 				),
 			{ dispatch: false }

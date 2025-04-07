@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {Router, RouterLink, RouterOutlet} from "@angular/router";
+import {RouterLink, RouterOutlet} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {
 	faHouse,
@@ -10,7 +10,6 @@ import {
 	faRightFromBracket, faBars
 } from "@fortawesome/free-solid-svg-icons";
 import {LogoutService} from "../../core/services/helpers/logout.service";
-import {Store} from "@ngrx/store";
 
 @Component({
 	standalone: true,
@@ -101,11 +100,7 @@ export class DashboardComponent {
 
 	constructor(
 		private logoutService: LogoutService,
-		private router: Router,
-		private store: Store
-	) {
-		// this.router.navigate(["/dashboard/yourMentees"]);
-	}
+	) {}
 
 	logout() {
 		this.logoutService.logout()
